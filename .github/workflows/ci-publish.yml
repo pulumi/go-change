@@ -80,7 +80,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: builds
+          name: artifacts
           retention-days: 1
           path: |
             artifacts/*SUMS*
