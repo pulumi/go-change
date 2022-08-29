@@ -1,0 +1,4 @@
+types:
+  feat: "Features"
+  fix: "Bug Fixes"
+  chore: "Miscellaneous"
