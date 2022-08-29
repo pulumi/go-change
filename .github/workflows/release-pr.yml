@@ -19,6 +19,10 @@ on:
         required: true
         description: "Release notes to publish"
         type: string
+    secrets:
+      GH_TOKEN:
+        description: "GitHub Token"
+        required: true
 
 jobs:
   version-bump:
@@ -34,13 +38,14 @@ jobs:
         with:
           go-version: 1.19.x
           cache: true
-      - env:
+      - name: Create PR
+        env:
           VERSION: ${{ inputs.version }}
           NEXT_VERSION: ${{ inputs.next_version }}
           RELEASE_NOTES: ${{ inputs.release_notes }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_BODY: |
-            Update this PR if necessary and comment `bors r+` to merge.
+            bors r+
         run: |
           set -euo pipefail
           git switch --create "automation/release-v${VERSION}"
