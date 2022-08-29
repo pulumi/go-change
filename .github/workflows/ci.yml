@@ -129,6 +129,8 @@ jobs:
     with:
       version: ${{ needs.info.outputs.version }}
       release_notes: ${{ needs.info.outputs.release_notes }}
+      project: ${{ github.repository }}
+      commit: ${{ github.sha }}
     secrets: inherit
 
   publish-ok:
