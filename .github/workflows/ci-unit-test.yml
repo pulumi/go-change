@@ -1,0 +1,31 @@
+name: Unit Test
+
+on:
+  workflow_call:
+
+jobs:
+  unit-test:
+    name: ${{ matrix.platform }} on Go${{ matrix.toolchain }}
+    strategy:
+      fail-fast: true
+      matrix:
+        include:
+          - name: stable-ubuntu
+            platform: ubuntu
+            toolchain: 1.19.x
+          - name: stable-windows
+            platform: windows
+            toolchain: 1.19.x
+          - name: stable-macos
+            platform: macos
+            toolchain: 1.19.x
+
+    runs-on: "${{ matrix.platform }}-latest"
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: ${{ matrix.toolchain }}
+          cache: true
+      - run: go test ./...
