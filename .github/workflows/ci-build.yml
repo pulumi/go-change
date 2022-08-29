@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        required: true
+        description: "Version to produce"
+        type: string
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        os:
+          - windows
+          - darwin
+          - linux
+        arch:
+          - amd64
+          - arm64
+    name: ${{ matrix.os }}-${{ matrix.arch }}
+    runs-on: ubuntu-latest
+
+    env:
+      version: ${{ inputs.version }}
+      dst: go-change-v${{ inputs.version }}-${{ matrix.os }}-${{ matrix.arch }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v3
+        with:
+          go-version: 1.19.x
+          cache: true
+      - name: Package
+        shell: bash
+        env:
+          GORELEASER_CURRENT_TAG: v${{ inputs.version }}
+        run: |
+          set -euxo pipefail
+          # Spurious, this command requires piping via stdin
+          # shellcheck disable=SC2002
+          cat .goreleaser.yaml \
+            | go run github.com/t0yv0/goreleaser-filter@v0.3.0 -goos ${{ matrix.os }} -goarch ${{ matrix.arch }} \
+            | goreleaser release -f - -p 5 --skip-validate --rm-dist --snapshot
+      - uses: actions/upload-artifact@v2
+        with:
+          name: builds
+          retention-days: 1
+          path: |
+            dist/go-change-*.tar.gz
+            dist/go-change-*.tar.zst
+            dist/go-change-*.deb
+            dist/go-change-*.rpm
+            dist/go-change-*.zip
