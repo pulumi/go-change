@@ -28,7 +28,6 @@ jobs:
 
     env:
       version: ${{ inputs.version }}
-      dst: go-change-v${{ inputs.version }}-${{ matrix.os }}-${{ matrix.arch }}
 
     steps:
       - uses: actions/checkout@v2
@@ -53,11 +52,9 @@ jobs:
             | goreleaser release -f - -p 5 --skip-validate --rm-dist --snapshot
       - uses: actions/upload-artifact@v2
         with:
-          name: builds
+          name: artifacts
           retention-days: 1
           path: |
-            dist/go-change_*.tar.gz
-            dist/go-change_*.tar.zst
-            dist/go-change_*.deb
-            dist/go-change_*.rpm
-            dist/go-change_*.zip
+            dist/*.tar.gz
+            dist/*.tar.zst
+            dist/*.zip
