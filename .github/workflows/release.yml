@@ -1,0 +1,47 @@
+name: Release
+
+on:
+  release:
+    types:
+      - released
+
+concurrency: release
+
+jobs:
+  info:
+    name: Get release version
+    runs-on: ubuntu-latest
+    outputs:
+      version: "${{ fromJSON(steps.version.outputs.version) }}"
+      next_version: "${{ fromJSON(steps.version.outputs.next_version) }}"
+    steps:
+      - uses: actions/checkout@v3
+      - name: Gather info
+        id: version
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}" # remove prefix
+
+          ./.github/scripts/set-output version "${VERSION}"
+
+          NEXT_VERSION="$(.github/scripts/get-next-version "${VERSION}")"
+          ./.github/scripts/set-output next_version "${NEXT_VERSION}"
+
+  # rust-crate:
+  #   name: Publish Crates
+  #   needs: [info]
+  #   uses: ./.github/workflows/release-rust-crates.yml
+  #   with:
+  #     version: ${{ needs.info.outputs.version }}
+  #     package: # N/A
+  #   secrets: inherit
+
+  release-pr:
+    name: Post-Release PR
+    needs: [info]
+    uses: ./.github/workflows/release-pr.yml
+    with:
+      version: ${{ needs.info.outputs.version }}
+      next_version: ${{ needs.info.outputs.next_version }}
+      release_notes: ${{ github.event.release.body }}
+    secrets: inherit
