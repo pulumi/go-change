@@ -58,6 +58,7 @@ jobs:
 
           git commit -m "prepare for next release (v${NEXT_VERSION})"
 
+          # Update go module dependencies
           pushd ./pkg/test
           go get -u "github.com/aaronfriel/go-change@v${VERSION}"
           go mod tidy
@@ -66,7 +67,10 @@ jobs:
 
           git commit -m "Update dependencies"
 
-          git push -u origin HEAD --force
+          # Publish Go module on another tag
+          git tag "pkg/test/v${VERSION}"
+          git push origin "pkg/test/v${VERSION}"
+          git push -u origin HEAD
 
           gh pr create \
             --title "prepare for next release (v${NEXT_VERSION})" \
