@@ -19,10 +19,6 @@ on:
         required: true
         description: "Release notes to publish"
         type: string
-    secrets:
-      GH_TOKEN:
-        description: "GitHub Token"
-        required: true
 
 jobs:
   version-bump:
@@ -43,7 +39,7 @@ jobs:
           VERSION: ${{ inputs.version }}
           NEXT_VERSION: ${{ inputs.next_version }}
           RELEASE_NOTES: ${{ inputs.release_notes }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.MERGE_PR_TOKEN }}
           PR_BODY: |
             bors r+
         run: |
