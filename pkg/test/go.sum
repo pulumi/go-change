@@ -1,5 +1,5 @@
-github.com/aaronfriel/go-change v0.1.0-alpha.12 h1:CldDucRLzXTPy73/pNS+m+I5LoXDESZxOW0i7b/Eb90=
-github.com/aaronfriel/go-change v0.1.0-alpha.12/go.mod h1:SVCTTXD+VhcYIHrFNH7hJBwXA8lZnl/7T6u+Yb+P9yU=
+github.com/aaronfriel/go-change v0.1.0 h1:KKyBLDh3ds8jJ3Av8WcxJXqfASus9NqqMR7HcfH9ieQ=
+github.com/aaronfriel/go-change v0.1.0/go.mod h1:SVCTTXD+VhcYIHrFNH7hJBwXA8lZnl/7T6u+Yb+P9yU=
 github.com/atotto/clipboard v0.1.4 h1:EH0zSVneZPSuFR11BlR9YppQTVDbh5+16AmcJi4g1z4=
 github.com/atotto/clipboard v0.1.4/go.mod h1:ZY9tmq7sm5xIbd9bOK4onWV4S6X0u6GY7Vn0Yu86PYI=
 github.com/charmbracelet/bubbles v0.13.0 h1:zP/ROH3wJEBqZWKIsD50ZKKlx3ydLInq3LdD/Nrlb8w=
