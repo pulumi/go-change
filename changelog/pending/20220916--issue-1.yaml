@@ -1,4 +1,0 @@
-changes:
-- type: fix
-  description: Fixes rendering the same pull request number multiple times.
-  prs: [13, 13, 13, 13]
