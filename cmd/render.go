@@ -145,6 +145,9 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 			if filterSinceCommit != "" && (len(output) == 0 || len(revlist) == 0) {
 				return nil
 			}
+
+			pullRequests := map[int]struct{}{}
+
 			for _, v := range revlist {
 				prs, _, err := client.PullRequests.ListPullRequestsWithCommit(context.TODO(), owner, repo, v, &github.PullRequestListOptions{})
 				if err != nil {
@@ -155,10 +158,24 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 					if filterOpenPrNumber != 0 && pr.GetState() == "open" && pr.GetNumber() != filterOpenPrNumber {
 						continue
 					}
-					for _, c := range entry.Entries {
-						c.GitHubMeta.PullRequestNumbers = append(c.GitHubMeta.PullRequestNumbers, pr.GetNumber())
+					pullRequests[pr.GetNumber()] = struct{}{}
+				}
+			}
+
+			for _, c := range entry.Entries {
+				var prs []int
+				for _, num := range c.GitHubMeta.PullRequestNumbers {
+					if _, has := pullRequests[num]; has {
+						// skip, the shared map has this entry already
+					} else {
+						prs = append(prs, num)
 					}
 				}
+
+				for num := range pullRequests {
+					prs = append(prs, num)
+				}
+				c.GitHubMeta.PullRequestNumbers = prs
 			}
 
 			fullChangelog = fullChangelog.Merge(entry)
