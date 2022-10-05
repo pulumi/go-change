@@ -129,6 +129,7 @@ func newCreateCmd() *cobra.Command {
 
 			if len(title) == 0 {
 				for {
+					title = slug.Make(desc) // Default title is the slug of the description
 					title, err = textPrompt("Title of change entry?", "issue-1, convert-stack-references, etc.", title)
 					if err != nil {
 						return err
