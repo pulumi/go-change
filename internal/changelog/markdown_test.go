@@ -81,19 +81,19 @@ types:
 ### Improvements
 
 - [cli/{backend,engine}] Foo bar baz
-  [#9001](https://github.com/pulumi/pulumi/pulls/9001)
+  [#9001](https://github.com/pulumi/pulumi/pull/9001)
 
 - [sdk/go] Make SDK go brrrr
-  [#10000](https://github.com/pulumi/pulumi/pulls/10000)
+  [#10000](https://github.com/pulumi/pulumi/pull/10000)
 
 
 ### Bug Fixes
 
 - [sdkgen/go] Fix Go SDK code generation
-  [#20001](https://github.com/pulumi/pulumi/pulls/20001)
+  [#20001](https://github.com/pulumi/pulumi/pull/20001)
 
 - [sdkgen/nodejs] Fix Typescript SDK code generation.
-  [#20000](https://github.com/pulumi/pulumi/pulls/20000)
+  [#20000](https://github.com/pulumi/pulumi/pull/20000)
 
 `)
 	want.Equal(t, buf.String())
