@@ -198,7 +198,9 @@ func renderTitle(date string, change changelog.Entry, title string) string {
 
 func typePrompt(config changelog.Config, err error) (string, error) {
 	for {
-		sp := selection.New("Type of change?", config.Types.Keys())
+		var keys = config.Types.Keys()
+		sort.Strings(keys)
+		sp := selection.New("Type of change?", keys)
 		sp.Filter = nil
 
 		typ, err := sp.RunPrompt()

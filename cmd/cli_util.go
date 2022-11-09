@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/aaronfriel/go-change/internal/changelog"
@@ -55,6 +56,7 @@ func scopePrompt(config changelog.Config) (string, []string, error) {
 	var scope string
 	var subs []string
 	scopes := config.Scopes.Keys()
+	sort.Strings(scopes)
 
 	if len(scopes) == 0 {
 		return "", nil, nil
