@@ -28,6 +28,7 @@ import (
 	"github.com/goccy/go-yaml"
 	"github.com/google/go-github/v47/github"
 	"github.com/spf13/cobra"
+	"golang.org/x/oauth2"
 )
 
 func newRenderCmd() *cobra.Command {
@@ -110,7 +111,7 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 
 	inputFs := os.DirFS(dir)
 	fullChangelog := &changelog.Changelog{}
-	client := github.NewClient(nil)
+	client := getClient(config)
 
 	err = fs.WalkDir(inputFs, ".", func(path string, d fs.DirEntry, err error) error {
 		if path == "." {
@@ -119,6 +120,7 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 		if d.IsDir() {
 			return nil
 		}
+
 		if filepath.Ext(path) == ".yaml" {
 			content, err := fs.ReadFile(inputFs, path)
 			if err != nil {
@@ -142,6 +144,7 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 			}
 			output := strings.TrimSpace(string(revlistOutput))
 			revlist := strings.Split(output, "\n")
+
 			if filterSinceCommit != "" && (len(output) == 0 || len(revlist) == 0) {
 				return nil
 			}
@@ -187,6 +190,20 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 		return nil, err
 	}
 	return fullChangelog, nil
+}
+
+// getClient returns a GitHub client, using the access token from the config if available.
+func getClient(config *changelog.Config) *github.Client {
+	if accessToken := config.GetGitHubAccessToken(); accessToken != "" {
+		ctx := context.Background()
+		ts := oauth2.StaticTokenSource(
+			&oauth2.Token{AccessToken: accessToken},
+		)
+		tc := oauth2.NewClient(ctx, ts)
+
+		return github.NewClient(tc)
+	}
+	return github.NewClient(nil)
 }
 
 func init() {

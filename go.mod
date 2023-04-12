@@ -11,6 +11,7 @@ require (
 	github.com/muesli/termenv v0.12.0
 	github.com/spf13/cobra v1.5.0
 	github.com/stretchr/testify v1.8.0
+	golang.org/x/oauth2 v0.0.0-20180821212333-d2e6202438be
 )
 
 require (
@@ -21,6 +22,7 @@ require (
 	github.com/containerd/console v1.0.3 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fatih/color v1.10.0 // indirect
+	github.com/golang/protobuf v1.3.2 // indirect
 	github.com/google/go-cmp v0.5.8 // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
 	github.com/gosimple/unidecode v1.0.1 // indirect
@@ -42,10 +44,12 @@ require (
 	github.com/spf13/pflag v1.0.5 // indirect
 	golang.org/x/crypto v0.0.0-20210817164053-32db794688a5 // indirect
 	golang.org/x/mod v0.4.1 // indirect
+	golang.org/x/net v0.0.0-20210226172049-e18ecbb05110 // indirect
 	golang.org/x/sys v0.0.0-20220715151400-c0bba94af5f8 // indirect
 	golang.org/x/term v0.0.0-20220526004731-065cf7ba2467 // indirect
 	golang.org/x/tools v0.1.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
+	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	mvdan.cc/gofumpt v0.1.0 // indirect

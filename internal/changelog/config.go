@@ -146,3 +146,11 @@ func (c *Config) GetGitHubRepository() (string, string, error) {
 
 	return "", "", fmt.Errorf("GitHub repository not configured and GITHUB_REPOSITORY env var not set")
 }
+
+// Get GITHUB_ACCESSS_TOKEN from environment, returns empty string otherwise.
+func (c *Config) GetGitHubAccessToken() string {
+	if envStr, ok := os.LookupEnv("GITHUB_ACCESS_TOKEN"); ok {
+		return envStr
+	}
+	return ""
+}
