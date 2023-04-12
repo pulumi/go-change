@@ -120,7 +120,6 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 		if d.IsDir() {
 			return nil
 		}
-
 		if filepath.Ext(path) == ".yaml" {
 			content, err := fs.ReadFile(inputFs, path)
 			if err != nil {
@@ -144,7 +143,6 @@ func extractChangelog(config *changelog.Config, dir string, filterSinceCommit st
 			}
 			output := strings.TrimSpace(string(revlistOutput))
 			revlist := strings.Split(output, "\n")
-
 			if filterSinceCommit != "" && (len(output) == 0 || len(revlist) == 0) {
 				return nil
 			}
