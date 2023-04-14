@@ -149,7 +149,7 @@ func (c *Config) GetGitHubRepository() (string, string, error) {
 
 // Get GITHUB_ACCESSS_TOKEN from environment, returns empty string otherwise.
 func (c *Config) GetGitHubAccessToken() string {
-	if envStr, ok := os.LookupEnv("GITHUB_ACCESS_TOKEN"); ok {
+	if envStr, ok := os.LookupEnv("GITHUB_TOKEN"); ok {
 		return envStr
 	}
 	return ""
