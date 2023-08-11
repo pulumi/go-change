@@ -60,7 +60,7 @@ jobs:
 
           # Update go module dependencies
           pushd ./pkg/test
-          go get -u "github.com/aaronfriel/go-change@v${VERSION}"
+          go get -u "github.com/pulumi/go-change@v${VERSION}"
           go mod tidy
           git add go.mod go.sum
           popd

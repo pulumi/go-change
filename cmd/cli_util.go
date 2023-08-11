@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/aaronfriel/go-change/internal/changelog"
 	"github.com/erikgeiser/promptkit/selection"
 	"github.com/erikgeiser/promptkit/textinput"
 	"github.com/muesli/termenv"
+	"github.com/pulumi/go-change/internal/changelog"
 )
 
 func textPrompt(textPrompt string, textPlaceholder string, textValue string) (string, error) {
