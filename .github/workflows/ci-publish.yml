@@ -56,27 +56,30 @@ jobs:
         working-directory: artifacts
         run: sha512sum ./* | tee SHA512SUMS
 
-      - name: Sign checksums
-        working-directory: artifacts
-        shell: bash
-        env:
-          RELEASE_KEY: ${{ secrets.RELEASE_KEY }}
-          version: ${{ inputs.version }}
-        run: |
-          set -u
-          echo "$RELEASE_KEY" > release.key
-          set -x
-          for algo in B3 SHA512; do
-            echo | rsign sign \
-              -p "${GITHUB_WORKSPACE}/.github/workflows/release.pub" \
-              -s release.key \
-              -t "${{ inputs.project }} v$version signed with automated key" \
-              -c 'see website for signing information' \
-              -x "${algo}SUMS.auto.minisig" \
-              "${algo}SUMS"
-          done
-          rm release.key
-          cat {B3,SHA512}SUMS.auto.minisig
+      # FIXME: This appears broken.
+      # Ref https://github.com/pulumi/go-change/issues/24
+      #
+      # - name: Sign checksums
+      #   working-directory: artifacts
+      #   shell: bash
+      #   env:
+      #     RELEASE_KEY: ${{ secrets.RELEASE_KEY }}
+      #     version: ${{ inputs.version }}
+      #   run: |
+      #     set -u
+      #     echo "$RELEASE_KEY" > release.key
+      #     set -x
+      #     for algo in B3 SHA512; do
+      #       rsign sign \
+      #         -p "${GITHUB_WORKSPACE}/.github/workflows/release.pub" \
+      #         -s release.key \
+      #         -t "${{ inputs.project }} v$version signed with automated key" \
+      #         -c 'see website for signing information' \
+      #         -x "${algo}SUMS.auto.minisig" \
+      #         "${algo}SUMS"
+      #     done
+      #     rm release.key
+      #     cat {B3,SHA512}SUMS.auto.minisig
 
       - uses: actions/upload-artifact@v2
         with:
