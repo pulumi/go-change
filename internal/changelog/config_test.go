@@ -18,7 +18,7 @@ types:
 scopes:
   foo: [bar, baz, thwomp]
   quux: []
-github: aaronfriel/go-change
+github: pulumi/go-change
 `
 	config := MustParseConfig(t, []byte(strings.TrimSpace(testConfigText)))
 	assert.ElementsMatch(t, config.Types.Keys(), []string{"feat", "fix", "chore"})
@@ -42,7 +42,7 @@ scopes:
   - baz
   - thwomp
   quux: []
-github: aaronfriel/go-change
+github: pulumi/go-change
 template:
   template: null
 `)

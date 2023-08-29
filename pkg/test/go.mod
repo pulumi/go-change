@@ -1,8 +1,8 @@
-module github.com/aaronfriel/go-change/pkg/test
+module github.com/pulumi/go-change/pkg/test
 
 go 1.19
 
-require github.com/aaronfriel/go-change v0.1.2
+require github.com/pulumi/go-change v0.1.2
 
 require (
 	github.com/atotto/clipboard v0.1.4 // indirect

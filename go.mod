@@ -1,4 +1,4 @@
-module github.com/aaronfriel/go-change
+module github.com/pulumi/go-change
 
 go 1.19
 

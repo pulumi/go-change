@@ -16,7 +16,7 @@ type Config struct {
 	// Scopes is a map of valid scopes to subscopes
 	Scopes ConfigScopes `yaml:"scopes"`
 
-	// GitHubRepository, e.g.: aaronfriel/go-change
+	// GitHubRepository, e.g.: pulumi/go-change
 	GitHubRepository GitHubRepository `yaml:"github,omitempty"`
 
 	// Template is the template to use for rendering the changelog.
