@@ -86,7 +86,7 @@ func newCreateCmd() *cobra.Command {
 			// Get desc from argument or prompt:
 			if len(desc) == 0 {
 				for {
-					desc, err = textPrompt("Description of change?", "Fixes bug, adds feature, updates dependencies, etc.", desc)
+					desc, err = textPrompt("Description of change?", "Fix bug, add feature, update dependencies, etc.", desc)
 					if err != nil {
 						return err
 					}

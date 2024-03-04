@@ -1,0 +1,3 @@
+changes:
+- type: feat
+  description: Make the prompt suggest the imperative mood
